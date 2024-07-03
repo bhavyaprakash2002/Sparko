@@ -3,6 +3,7 @@ pandas
 scikit-learn
 matplotlib
 seaborn
-pickle
 dill
--e.
+ipykernel
+openpyxl
+# -e.
