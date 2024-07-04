@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 
 from src.exceptions import CustomException
 from ..logger import logging
+from src.components.data_preprocessing import DataPreprocessingConfig
+from src.components.data_preprocessing import DataPreprocessing
 
 from dataclasses import dataclass
 
@@ -41,5 +43,9 @@ class DataIngestion:
             raise CustomException(e,sys)
         
 if __name__=='__main__':
-    obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    data_ingestion = DataIngestion()
+    train_data,test_data = data_ingestion.initiate_data_ingestion()
+
+    data_transformation = DataPreprocessing()
+    data_transformation.data_preprocessing(train_data, test_data)
+
