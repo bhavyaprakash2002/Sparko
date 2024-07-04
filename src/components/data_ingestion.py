@@ -9,6 +9,8 @@ from src.exceptions import CustomException
 from ..logger import logging
 from src.components.data_preprocessing import DataPreprocessingConfig
 from src.components.data_preprocessing import DataPreprocessing
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTraining
 
 from dataclasses import dataclass
 
@@ -47,5 +49,8 @@ if __name__=='__main__':
     train_data,test_data = data_ingestion.initiate_data_ingestion()
 
     data_transformation = DataPreprocessing()
-    data_transformation.data_preprocessing(train_data, test_data)
+    train_arr,test_arr,_ = data_transformation.data_preprocessing(train_data, test_data)
 
+    model_train = ModelTraining()
+    print(model_train.model_training(test_arr, test_arr))
+ 
