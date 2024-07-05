@@ -36,32 +36,39 @@ def predict_data():
     if request.method=='GET':
         return render_template('home.html')
     else:
-        data = PredictData(month = request.form.get('month'),
-                           day = request.form.get('day'))
+        count = 0
+        if count <= 5:
+            data = PredictData(month = request.form.get('month'),
+                            day = request.form.get('day'))
         
-        pred_df = data.get_data_as_data_frame()
-        pred_pipeline = PredictPipeline()
-        result = pred_pipeline.predict_pipeline(pred_df)
+            pred_df = data.get_data_as_data_frame()
+            pred_pipeline = PredictPipeline()
+            result = pred_pipeline.predict_pipeline(pred_df)
+            csv_obj = s3.get_object(Bucket=bucket, Key=csv_file_name)
+            csv_string = csv_obj['Body'].read().decode('utf-8')
+            # Read the CSV content into a pandas DataFrame
+            df = pd.read_csv(StringIO(csv_string))
+            x = df.iloc[:,:2]
+            y = df['usage']
+            model = XGBRegressor()
+            model.fit(x,y)
+            dict_data = {
+                'month' : [int(request.form.get('month'))],
+                'day' : [int(request.form.get('month'))]
+            }
+            df_data = pd.DataFrame(dict_data)
+            usage_preds = model.predict(df_data)
 
-        csv_obj = s3.get_object(Bucket=bucket, Key=csv_file_name)
-        csv_string = csv_obj['Body'].read().decode('utf-8')
-        # Read the CSV content into a pandas DataFrame
-        df = pd.read_csv(StringIO(csv_string))
-        x = df.iloc[:,:2]
-        y = df['usage']
-        model = XGBRegressor()
-        model.fit(x,y)
+            return render_template('home.html', results = [result[0],usage_preds[0]])
+        else:
+            data = PredictData(month = request.form.get('month'),
+                            day = request.form.get('day'))
         
-        dict_data = {
-            'month' : [int(request.form.get('month'))],
-            'day' : [int(request.form.get('month'))]
-        }
-        
-        df_data = pd.DataFrame(dict_data)
-        usage_preds = model.predict(df_data)
-        
-
-        return render_template('home.html', results = [result[0],usage_preds[0]])
+            pred_df = data.get_data_as_data_frame()
+            pred_pipeline = PredictPipeline()
+            result = pred_pipeline.predict_pipeline(pred_df)
+            count+=1
+            return render_template('home.html', results = [result[0]])
     
 
 
