@@ -7,4 +7,6 @@ dill
 ipykernel
 openpyxl
 flask
+boto3
+sagemaker
 # -e.

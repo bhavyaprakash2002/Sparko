@@ -17,12 +17,22 @@
             <input class="form-control" type="number" name="day"
                 placeholder="Enter your date of installation" min='1' max='31' />
         </div>
+
+        <!--consumer usage part initiates-->
+        <div class="mb-3">
+            <label class="form-label">Consumer Usage</label>
+            <input class="form-control" type="number" name="usage"
+                placeholder="Enter your date of installation" min='0' max='100' />
+        </div>
+        <!--consumer usage part finishes-->
+
         <div class="mb-3">
             <input class="btn btn-primary" type="submit" value="Predict Irradiance" required />
         </div>
     </form>
     <h2>
        The  predicted Irradiance is {{results}}
+       The user prediction is {{results}}
     </h2>
    <body>
 </html>
