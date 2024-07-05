@@ -16,9 +16,9 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionConfig:
-    train_data_path:str=os.path.join('artifacts','train.xlsx')
-    test_data_path:str=os.path.join('artifacts','test.xlsx')
-    raw_data_path:str=os.path.join('artifacts','data.xlsx')
+    train_data_path:str=os.path.join('artifacts','train.csv')
+    test_data_path:str=os.path.join('artifacts','test.csv')
+    raw_data_path:str=os.path.join('artifacts','data.csv')
 
 class DataIngestion:
     def __init__(self):
@@ -27,15 +27,15 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info('data ingestion initiated')
         try:
-            data = pd.read_excel(r'notebooks\big_data_1.xlsx')
+            data = pd.read_csv(r'notebooks\big_data_1.csv')
 
             logging.info('dataset collected')
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
-            data.to_excel(self.ingestion_config.raw_data_path)
+            data.to_csv(self.ingestion_config.raw_data_path)
             logging.info('train_test_split initiated')
             train_set, test_set = train_test_split(data, random_state=42)
-            train_set.to_excel(self.ingestion_config.train_data_path, index = False, header = True)
-            test_set.to_excel(self.ingestion_config.test_data_path, index = False, header = True)
+            train_set.to_csv(self.ingestion_config.train_data_path, index = False, header = True)
+            test_set.to_csv(self.ingestion_config.test_data_path, index = False, header = True)
             logging.info('data ingestion completed')
             return (
                 self.ingestion_config.train_data_path,

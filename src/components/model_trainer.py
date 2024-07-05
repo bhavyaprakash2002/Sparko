@@ -27,9 +27,9 @@ class ModelTraining:
         logging.info('model training initated')
         try:
             x_train, y_train, x_test, y_test = (
-                train_arr[:,1:3],
+                train_arr[:,:2],
                 train_arr[:,-1],
-                test_arr[:,1:3],
+                test_arr[:,:2],
                 test_arr[:,-1]
             )
             models = {

@@ -25,7 +25,7 @@ class DataPreprocessing:
         logging.info('preprocessing started')
         try:
             features = ['month','day']
-            feature_pipeline = Pipeline([('scaler',StandardScaler(with_mean=False))])
+            feature_pipeline = Pipeline([('scaler',StandardScaler())])
             transformer = ColumnTransformer([('preprocessing', feature_pipeline, features)])
 
             logging.info('transformation steps defined')
@@ -36,8 +36,8 @@ class DataPreprocessing:
         
     def data_preprocessing(self,train_data_path, test_data_path):
         try:
-            train_data = pd.read_excel(train_data_path)
-            test_data = pd.read_excel(test_data_path)
+            train_data = pd.read_csv(train_data_path)
+            test_data = pd.read_csv(test_data_path)
             logging.info('data preprocessing initiated')
             transformation_obj = self.preprocessing_steps()
 
