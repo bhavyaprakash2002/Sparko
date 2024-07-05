@@ -1,0 +1,28 @@
+<html>
+<body>
+    <div class="login">
+       <h1>Irradiance Prediction</h1>
+   
+       <form action="{{ url_for('predict_data')}}" method="post">
+        <h1>
+            <legend>Irradiance Prediction</legend>
+        </h1>
+        <div class="mb-3">
+            <label class="form-label">Month of installation</label>
+            <input class="form-control" type="number" name="month"
+                placeholder="Enter your month of installation" min='1' max='12' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Date of installation</label>
+            <input class="form-control" type="number" name="day"
+                placeholder="Enter your date of installation" min='1' max='31' />
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict Irradiance" required />
+        </div>
+    </form>
+    <h2>
+       The  predicted Irradiance is {{results}}
+    </h2>
+   <body>
+</html>

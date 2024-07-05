@@ -54,3 +54,5 @@ if __name__=='__main__':
     model_train = ModelTraining()
     print(model_train.model_training(test_arr, test_arr))
  
+
+

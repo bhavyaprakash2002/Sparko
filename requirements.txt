@@ -6,4 +6,5 @@ seaborn
 dill
 ipykernel
 openpyxl
+flask
 # -e.

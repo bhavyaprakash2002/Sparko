@@ -56,7 +56,7 @@ class ModelTraining:
             predictions = best_model.predict(x_test)
             rmse = mean_squared_error(y_test, predictions)
             return rmse
-
-            
+        
+        
         except Exception as e:
             raise CustomException(e,sys)
